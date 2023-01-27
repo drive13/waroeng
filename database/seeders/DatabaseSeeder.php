@@ -31,25 +31,21 @@ class DatabaseSeeder extends Seeder
                 'tipe_dagangan_id' =>  '1',
                 'kode' => random_int(1, 10),
                 'nama' =>  'Barang Dagangan ' . $i,
-                'harga_modal' =>  $hargaModal,
+                'modal' =>  $hargaModal,
                 'harga_jual' =>  $hargaJual,
                 'foto' =>  'dummy' . $i . '.jpg',
+                'stock' => random_int(0, 50)
             ]);
 
             DB::table('detail_transaksis')->insert([
                 'transaksi_id' => '1',
                 'barang_id' => $i,
-                'harga_modal' => $hargaModal,
+                'modal' => $hargaModal,
                 'harga_jual' => $hargaJual,
                 'qty' => $i,
                 'harga_total' => '50000',
             ]);
         }
-
-        DB::table('kategoris')->insert([
-            'kategori' => 'Barang testing development',
-            'keterangan' => 'Barang testing development',
-        ]);
 
         DB::table('tipe_dagangans')->insert([
             'tipe' => 'Dummy Goods',
@@ -67,6 +63,26 @@ class DatabaseSeeder extends Seeder
             'total_belanja' => '30000',
             'total_bayar' => '50000',
             'keterangan' => '-',
+        ]);
+
+        DB::table('kategoris')->insert([
+            'kategori' => 'Barang testing development',
+            'keterangan' => 'Barang testing development',
+        ]);
+
+        DB::table('kategoris')->insert([
+            'kategori' => 'Sembako',
+            'keterangan' => '-'
+        ]);
+
+        DB::table('kategoris')->insert([
+            'kategori' => 'Elektronik',
+            'keterangan' => '-'
+        ]);
+
+        DB::table('kategoris')->insert([
+            'kategori' => 'Alat Tulis',
+            'keterangan' => '-'
         ]);
     }
 }

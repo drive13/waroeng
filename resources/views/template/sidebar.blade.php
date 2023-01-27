@@ -9,14 +9,14 @@
             </a>
         </li>
 
-        <li class="sidebar-item {{ Request::is('barang*') ? 'active' : '' }} has-sub">
+        <li class="sidebar-item {{ Request::is('barangs*') ? 'active' : '' }} has-sub">
             <a href="#" class="sidebar-link">
                 <i class="bi bi-stack"></i>
                 <span>Barang</span>
             </a>
             <ul class="submenu">
-                <li class="submenu-item {{ Request::is('barang') ? 'active' : '' }}">
-                    <a href="{{ route('barang') }}">Daftar Barang</a>
+                <li class="submenu-item {{ Request::is('barangs') ? 'active' : '' }}">
+                    <a href="{{ route('barangs.index') }}">Daftar Barang</a>
                 </li>
                 <li class="submenu-item">
                     <a href="#">Tooltip</a>

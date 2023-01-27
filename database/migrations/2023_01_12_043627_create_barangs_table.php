@@ -19,9 +19,10 @@ return new class extends Migration
             $table->foreignId('tipe_dagangan_id');
             $table->string('kode', 30);
             $table->string('nama', 100);
-            $table->string('harga_modal', 10);
+            $table->string('modal', 10);
             $table->string('harga_jual', 10);
-            $table->string('foto');
+            $table->string('foto')->nullable();
+            $table->string('stock', 3);
             $table->timestamps();
         });
     }

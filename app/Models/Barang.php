@@ -14,8 +14,10 @@ class Barang extends Model
         'tipe_dagangan_id',
         'kode',
         'nama',
-        'harga_modal',
+        'modal',
         'harga_jual',
+        'stock',
+        'foto',
     ];
 
     public function kategori()
@@ -25,6 +27,6 @@ class Barang extends Model
 
     public function tipe()
     {
-        return $this->belongsTo(TipeDagangan::class);
+        return $this->belongsTo(TipeDagangan::class, 'tipe_dagangan_id');
     }
 }

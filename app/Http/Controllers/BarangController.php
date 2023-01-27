@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Barang;
-use App\Http\Requests\StoreBarangRequest;
-use App\Http\Requests\UpdateBarangRequest;
+use Illuminate\Http\Request;
+use App\Models\Kategori;
+use App\Models\TipeDagangan;
+use Illuminate\Support\Facades\Hash;
 
 class BarangController extends Controller
 {
@@ -16,10 +18,15 @@ class BarangController extends Controller
     public function index()
     {
 
-        $barangs = Barang::latest()->get();
-        dd($barangs);
+        $barangs = Barang::with('kategori', 'tipe')->latest()->get();
+        $kategoris = Kategori::all();
+        $tipeDagangans = TipeDagangan::all();
+        // dd($kategoris);
         return view('barang.index', [
             'title' => 'Daftar Barang',
+            'barangs' => $barangs,
+            'kategoris' => $kategoris,
+            'tipeDagangans' => $tipeDagangans,
         ]);
     }
 
@@ -36,12 +43,30 @@ class BarangController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreBarangRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBarangRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request);
+        $validatedData = $request->validate([
+            'kategori_id' => 'required|integer',
+            'tipe_dagangan_id' => 'required|integer',
+            'kode' => 'required|integer|unique:barangs',
+            'nama' => 'required',
+            'modal' => 'required',
+            'harga_jual' => 'required',
+            'stock' => 'required',
+            'foto' => 'required|image|max:2042',
+        ]);
+
+        if ($request->file('foto')) {
+            $foto = Hash::make('foto') . '.' . $request->file('foto')->extension();
+            $request->foto->move(public_path('images/foto_barang/'), $foto);
+        }
+
+        Barang::create($validatedData);
+        return back()->with('success', 'Barang berhasil ditambahkan!');
     }
 
     /**
