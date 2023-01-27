@@ -17,4 +17,14 @@ class DetailTransaksi extends Model
         'qty',
         'harga_total',
     ];
+
+    public function transaksi()
+    {
+        return $this->belongsTo(Transaksi::class);
+    }
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class);
+    }
 }

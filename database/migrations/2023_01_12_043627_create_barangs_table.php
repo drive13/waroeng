@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('nama', 100);
             $table->string('harga_modal', 10);
             $table->string('harga_jual', 10);
+            $table->string('foto');
             $table->timestamps();
         });
     }

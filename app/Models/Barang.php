@@ -17,4 +17,14 @@ class Barang extends Model
         'harga_modal',
         'harga_jual',
     ];
+
+    public function kategori()
+    {
+        return $this->belongsTo(Kategori::class);
+    }
+
+    public function tipe()
+    {
+        return $this->belongsTo(TipeDagangan::class);
+    }
 }

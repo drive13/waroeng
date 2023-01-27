@@ -13,4 +13,9 @@ class TipeDagangan extends Model
         'tipe',
         'keterangan',
     ];
+
+    public function barangs()
+    {
+        return $this->hasMany(Barang::class);
+    }
 }

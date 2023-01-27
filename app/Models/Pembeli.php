@@ -13,4 +13,9 @@ class Pembeli extends Model
         'nama',
         'hutang',
     ];
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class);
+    }
 }

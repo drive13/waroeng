@@ -15,4 +15,14 @@ class Transaksi extends Model
         'total_bayar',
         'keterangan'
     ];
+
+    public function pembeli()
+    {
+        return $this->belongsTo(Pembeli::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(DetailTransaksi::class);
+    }
 }

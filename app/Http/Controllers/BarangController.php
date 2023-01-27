@@ -15,7 +15,12 @@ class BarangController extends Controller
      */
     public function index()
     {
-        //
+
+        $barangs = Barang::latest()->get();
+        dd($barangs);
+        return view('barang.index', [
+            'title' => 'Daftar Barang',
+        ]);
     }
 
     /**
