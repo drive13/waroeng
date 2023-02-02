@@ -1,29 +1,31 @@
 @extends('template.template')
 
 @section('content')
-    @if ($errors->any())
-        <script type="text/javascript">
-            window.onload = function() {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Terjadi Kesalahan!',
-                    html: '@foreach($errors->all() as $error) - {!! $error !!}<br> @endforeach',
-                })
-            }
-        </script>
-    @endif
-    @if ($message = Session::get('success'))
-        <script type="text/javascript">
-            window.onload = function() {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: '{!! $message !!}',
-                })
-            }
-        </script>
-    @endif
-
+    {{-- Sweet Alert 2 --}}
+        @if ($errors->any())
+            <script type="text/javascript">
+                window.onload = function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan!',
+                        html: '@foreach($errors->all() as $error) - {!! $error !!}<br> @endforeach',
+                    })
+                }
+            </script>
+        @endif
+        @if ($message = Session::get('success'))
+            <script type="text/javascript">
+                window.onload = function() {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Berhasil!',
+                        text: '{!! $message !!}',
+                    })
+                }
+            </script>
+        @endif
+    {{-- Sweet Alert 2 --}}
+    
     <div class="page-heading">
         <div class="page-title">
             <div class="row mb-3">

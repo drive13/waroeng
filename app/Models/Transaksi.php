@@ -10,7 +10,9 @@ class Transaksi extends Model
     use HasFactory;
 
     protected $fillable = [
+        'invoice',
         'pembeli_id',
+        'tanggal',
         'total_belanja',
         'total_bayar',
         'keterangan'

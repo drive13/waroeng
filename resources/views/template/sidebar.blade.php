@@ -23,41 +23,12 @@
                 </li>
             </ul>
         </li>
-
-        <li class="sidebar-item has-sub">
-            <a href="#" class="sidebar-link">
-                <i class="bi bi-collection-fill"></i>
-                <span>Extra Components</span>
+        <li class="sidebar-title">Warung</li>
+        <li class="sidebar-item {{ Request::is('belanja') ? 'active' : '' }}">
+            <a href="{{ route('belanja') }}" class="sidebar-link">
+                <i class="bi bi-cart2"></i>
+                <span>Belanja</span>
             </a>
-            <ul class="submenu">
-                <li class="submenu-item">
-                    <a href="extra-component-avatar.html"
-                        >Avatar</a
-                    >
-                </li>
-                <li class="submenu-item">
-                    <a
-                        href="extra-component-sweetalert.html"
-                        >Sweet Alert</a
-                    >
-                </li>
-                <li class="submenu-item">
-                    <a href="extra-component-toastify.html"
-                        >Toastify</a
-                    >
-                </li>
-                <li class="submenu-item">
-                    <a href="extra-component-rating.html"
-                        >Rating</a
-                    >
-                </li>
-                <li class="submenu-item">
-                    <a href="extra-component-divider.html"
-                        >Divider</a
-                    >
-                </li>
-            </ul>
         </li>
-
     </ul>
 </div>

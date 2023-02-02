@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaksi_id');
             $table->foreignId('barang_id');
+            $table->string('kode', 30);
             $table->string('modal', 10);
             $table->string('harga_jual', 10);
             $table->string('qty', 2);

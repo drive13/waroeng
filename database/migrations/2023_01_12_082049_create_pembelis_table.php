@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('pembelis', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 50);
-            $table->string('hutang', 10);
+            $table->string('hutang', 10)->nullable();
             $table->timestamps();
         });
     }

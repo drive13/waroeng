@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembeli;
-use App\Http\Requests\StorePembeliRequest;
-use App\Http\Requests\UpdatePembeliRequest;
+use Illuminate\Http\Request;
 
 class PembeliController extends Controller
 {
@@ -31,12 +30,17 @@ class PembeliController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorePembeliRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePembeliRequest $request)
+    public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nama' => 'required',
+        ]);
+
+        Pembeli::create($validatedData);
+        return "Berhasil!";
     }
 
     /**
@@ -82,5 +86,18 @@ class PembeliController extends Controller
     public function destroy(Pembeli $pembeli)
     {
         //
+    }
+
+    public function ajaxPost(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'hutang' => 'integer',
+        ]);
+
+        Pembeli::create($validatedData);
+        $newPembeli = Pembeli::select('id', 'nama')->latest()->first();
+
+        return json_encode($newPembeli);
     }
 }

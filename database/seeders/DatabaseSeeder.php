@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder
             DB::table('detail_transaksis')->insert([
                 'transaksi_id' => '1',
                 'barang_id' => $i,
+                'kode' => '99',
                 'modal' => $hargaModal,
                 'harga_jual' => $hargaJual,
                 'qty' => $i,
@@ -50,7 +51,6 @@ class DatabaseSeeder extends Seeder
         DB::table('tipe_dagangans')->insert([
             'tipe' => 'Dummy Goods',
             'keterangan' => 'Cuma data dummy',
-
         ]);
 
         DB::table('pembelis')->insert([
@@ -59,7 +59,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('transaksis')->insert([
+            'invoice' => 'INV/' . date('j-m-y') . '/0000',
             'pembeli_id' => '1',
+            'tanggal' => date('j F Y'),
             'total_belanja' => '30000',
             'total_bayar' => '50000',
             'keterangan' => '-',
