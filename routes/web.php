@@ -4,6 +4,7 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\TransaksiController;
+use App\Models\Barang;
 use App\Models\Pembeli;
 use App\Models\Transaksi;
 use Illuminate\Support\Facades\Route;
@@ -25,17 +26,11 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-// Route::get('/barang', [BarangController::class, 'index'])->name('barang');
 Route::resource('/barangs', BarangController::class);
+Route::get('/barang-ajax', [BarangController::class, 'ajax']);
 
 Route::post('/new-pembeli', [PembeliController::class, 'ajaxPost']);
 Route::post('/simpan-transaksi', [TransaksiController::class, 'simpan']);
 Route::get('/receipt/{id}', [TransaksiController::class, 'receipt']);
-// Route::get('/')
 
 Route::get('/belanja', [TransaksiController::class, 'create'])->name('belanja');
-
-// Route::get('/tes', function () {
-//     $tes = Pembeli::select('id', 'nama')->latest()->first();
-//     dd($tes);
-// });

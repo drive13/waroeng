@@ -118,7 +118,7 @@
                                         {{ $barang->stock }}
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
+                                        <a href="/barangs/{{ $barang->id }}/edit" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

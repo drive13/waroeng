@@ -6,16 +6,16 @@
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <title>{{ config('app.name') }} - {{ $title }}</title>
 
-        <link rel="stylesheet" href="assets/css/main/app.css" />
-        <link rel="stylesheet" href="assets/css/main/app-dark.css" />
+        <link rel="stylesheet" href="/assets/css/main/app.css" />
+        <link rel="stylesheet" href="/assets/css/main/app-dark.css" />
         <link
             rel="shortcut icon"
-            href="assets/images/logo/favicon.svg"
+            href="/assets/images/logo/favicon.svg"
             type="image/x-icon"
         />
         <link
             rel="shortcut icon"
-            href="assets/images/logo/favicon.png"
+            href="/assets/images/logo/favicon.png"
             type="image/png"
         />
         @stack('link')
@@ -36,7 +36,7 @@
                             <div class="logo">
                                 <a href="index.html"
                                     ><img
-                                        src="assets/images/logo/logo.svg"
+                                        src="/assets/images/logo/logo.svg"
                                         alt="Logo"
                                         srcset=""
                                 /></a>
@@ -139,8 +139,8 @@
         </div>
 
 
-        <script src="assets/js/bootstrap.js"></script>
-        <script src="assets/js/app.js"></script>
+        <script src="/assets/js/bootstrap.js"></script>
+        <script src="/assets/js/app.js"></script>
 
         @stack('js')
         

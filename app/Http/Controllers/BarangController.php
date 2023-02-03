@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Kategori;
 use App\Models\TipeDagangan;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class BarangController extends Controller
 {
@@ -61,8 +62,9 @@ class BarangController extends Controller
         ]);
 
         if ($request->file('foto')) {
-            $foto = Hash::make('foto') . '.' . $request->file('foto')->extension();
+            $foto = $request->kode . '-' . date('d.m.y') . '.' . $request->file('foto')->extension();
             $request->foto->move(public_path('images/foto_barang/'), $foto);
+            $validatedData['foto'] = $foto;
         }
 
         Barang::create($validatedData);
@@ -75,9 +77,11 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function show(Barang $barang)
+    public function show($id)
     {
-        //
+        $barang = Barang::find($id);
+
+        return response()->json($barang);
     }
 
     /**
@@ -86,21 +90,47 @@ class BarangController extends Controller
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function edit(Barang $barang)
+    public function edit($id)
     {
-        //
+        // dd($id);
+        return view('barang.edit', [
+            'title' => 'Edit Barang',
+            'barang' => Barang::find($id),
+            'kategoris' => Kategori::all(),
+            'tipeDagangans' => TipeDagangan::all(),
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateBarangRequest  $request
+     * @param  \App\Http\Requests\Request  $request
      * @param  \App\Models\Barang  $barang
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateBarangRequest $request, Barang $barang)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'kategori_id' => 'required|integer',
+            'tipe_dagangan_id' => 'required|integer',
+            'kode' => 'required|integer',
+            'nama' => 'required',
+            'modal' => 'required',
+            'harga_jual' => 'required',
+            'stock' => 'required',
+            'foto' => 'image|max:2042',
+        ]);
+
+        if ($request->file('foto')) {
+            $foto = $request->kode . '-' . date('d.m.y.H.i.s') . '.' . $request->file('foto')->extension();
+            $request->foto->move(public_path('images/foto_barang/'), $foto);
+            $validatedData['foto'] = $foto;
+            File::delete(public_path('images/foto_barang/' . $request->foto_lama));
+        }
+
+        $barang = Barang::find($id);
+        $barang->update($validatedData);
+        return redirect('barangs')->with('success', 'Barang telah diperbaharui!');
     }
 
     /**

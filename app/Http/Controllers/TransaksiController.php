@@ -46,7 +46,7 @@ class TransaksiController extends Controller
 
         $pembelis = Pembeli::all();
         $invoice = 'INV/' . date('j-m-y') . '/' . $newNum;
-        $barangs = Barang::all();
+        $barangs = Barang::where('stock', '>', 0)->get();
         // dd($barangs);
         return view('transaksi.create', [
             'title' => 'Pembelian',
@@ -153,6 +153,10 @@ class TransaksiController extends Controller
                     'qty' => $request->qty[$i],
                     'harga_total' => $request->qty[$i] * $request->harga_jual[$i],
                 ]);
+
+                $barang = Barang::find($request->barang_id[$i]);
+                $barang->stock = $barang->stock - $request->qty[$i];
+                $barang->save();
             }
             return $transaksi->id;
         });

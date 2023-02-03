@@ -175,7 +175,7 @@
                                                 <div class="form-group">
                                                     <label for="qty-barang">Qty</label>
                                                     <div class="position-relative">
-                                                        <input class="form-control" type="number" name="" id="qty-barang">
+                                                        <input class="form-control" type="number" name="" min="1" max="1" id="qty-barang">
                                                     </div>
                                                 </div>
                                             </div>
@@ -327,6 +327,7 @@
 
 @push('link')
     <link rel="stylesheet" href="assets/extensions/sweetalert2/sweetalert2.min.css"/>
+    
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -362,11 +363,10 @@
                         text: 'Barang Tidak Ditemukan!',
                     })
                 } else {
-                    console.log(res);
                     previewSrc = res.foto;
                     previewTitleSrc = res.nama;
                     $('#id-barang').val(res.id);
-                    $('#qty-barang').val('');
+                    $('#qty-barang').attr({'max': res.stock, 'min': 1});
                     $('#search-kode').val(res.kode);
                     // $('#nama-barang').val(res.nama);
                     $('#harga-modal').val(res.modal);
@@ -374,6 +374,17 @@
                     $('#foto-barang').attr('src', '/images/foto_barang/' + res.foto);
                 }
             });
+
+            $('#qty-barang').on('input', function(){
+                if ($('#qty-barang').val() > $('#qty-barang').attr('max')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Terjadi Kesalahan!',
+                        text: 'Stock barang tidak mencukupi permintaan! Stock : ' + $('#qty-barang').attr('max'),
+                    });
+                    $('#qty-barang').val($('#qty-barang').attr('max'));
+                }
+            })
 
             let previewSrc = 'photo.png';
             let previewTitleSrc = '';
