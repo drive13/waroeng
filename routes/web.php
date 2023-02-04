@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PembeliController;
 use App\Http\Controllers\TransaksiController;
 use App\Models\Barang;
@@ -25,6 +26,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+Route::resource('/kategoris', KategoriController::class);
 
 Route::resource('/barangs', BarangController::class);
 Route::get('/barang-ajax', [BarangController::class, 'ajax']);

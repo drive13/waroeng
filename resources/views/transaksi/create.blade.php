@@ -123,10 +123,10 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
-                                                    <label for="nama-barang">Nama Barang</label>
+                                                    <label for="select-barang">Nama Barang</label>
                                                     <div class="position-relative">
-                                                        {{-- <input class="form-control" type="text" name="" id="nama-barang" readonly> --}}
-                                                        <select class="form-select" name="" id="nama-barang">
+                                                        <input class="form-control" type="hidden" name="" id="nama-barang" readonly>
+                                                        <select class="form-select" name="" id="select-barang" autofocus>
                                                             <option value="" disabled selected>-- Cari Barang-- </option>
                                                         </select>
                                                     </div>
@@ -137,11 +137,11 @@
                                                     <label for="select-kode">Kode Barang</label>
                                                     <div class="position-relative">
                                                         <input
-                                                        type="number"
+                                                        type="text"
                                                         class="form-control"
                                                         placeholder="Masukan kode barang"
                                                         id="search-kode"
-                                                        autofocus
+                                                        readonly
                                                         />
                                                     </div>
                                                     <input type="hidden" id="id-barang">
@@ -167,7 +167,7 @@
                                                 <div class="form-group">
                                                     <label for="harga-jual">Harga Jual (Rp.)</label>
                                                     <div class="position-relative">
-                                                        <input class="form-control" type="number" name="" id="harga-jual">
+                                                        <input class="form-control" type="number" name="" id="harga-jual" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -345,16 +345,20 @@
 
     <script>
         $(document).ready(function() {
+            
+            $('.select-pembeli').select2();
+            $('#select-barang').select2();
+
             const barangs = {{ Js::from($barangs) }};
-            // console.log(barangs);
+
             //versi cari nama
             $.each(barangs, function(i, v){
                 let newOption = new Option(v.nama, v.id, false, false);
-                $('#nama-barang').append(newOption).trigger('change');
+                $('#select-barang').append(newOption).trigger('change');
             });
 
-            $('#nama-barang').on('change', function(){
-                let selected = $('#nama-barang').select2('data');
+            $('#select-barang').on('change', function(){
+                let selected = $('#select-barang').select2('data');
                 let res = barangs.find(({id}) => id == selected[0].id);
                 if (res == undefined) {
                     Swal.fire({
@@ -368,7 +372,7 @@
                     $('#id-barang').val(res.id);
                     $('#qty-barang').attr({'max': res.stock, 'min': 1});
                     $('#search-kode').val(res.kode);
-                    // $('#nama-barang').val(res.nama);
+                    $('#nama-barang').val(res.nama);
                     $('#harga-modal').val(res.modal);
                     $('#harga-jual').val(res.harga_jual);
                     $('#foto-barang').attr('src', '/images/foto_barang/' + res.foto);
@@ -389,12 +393,9 @@
             let previewSrc = 'photo.png';
             let previewTitleSrc = '';
 
-            $('.select-pembeli').select2();
-            $('#nama-barang').select2();
-
             function subTot(){
-                let array = $('.table-transaksi tbody tr').find('td:nth-child(6)').map(function(){
-                        return $(this).text()
+                let array = $('.table-transaksi tbody tr').find('td:nth-child(6)').find('input[name="subtotal[]"]').map(function(){
+                        return $(this).val()
                     }).get();
 
                 let convert = array.map(Number);
@@ -471,14 +472,14 @@
                     markup = `<tr>
                                 <td class="text-center">${row+1}</td>
                                 <td class="text-center">
-                                    <input type="hidden" name="barang_id[]" value="${id}"><input class="form-select" name="kode[]" type="number" readonly value="${kodeBarang}">
+                                    <input type="hidden" name="barang_id[]" value="${id}"><input class="form-select" name="kode[]" type="text" readonly value="${kodeBarang}">
                                 </td>
                                 <td class="text-center">${namaBarang}</td>
                                 <td class="text-center"><input type="hidden" name="modal[]" value="${modalBarang}"><input type="number" class="form-select" name="harga_jual[]" value="${hargaBarang}" readonly></td>
                                 <td class="text-center">
                                     <input class="form-select qty" name="qty[]" type="number" min="1" max="100" value="${qty}">
                                 </td>
-                                <td class="text-center">${hargaBarang * qty}</td>
+                                <td class="text-center"><input class="form-control row-subtotal" name="subtotal[]" type="number" value="${hargaBarang * qty}"></td>
                                 <td class="text-center align-middle"><a href="#" class="btn btn-danger remove-barang"><i class="bi bi-x-square"></i></a></td>
                             </tr>`
     
@@ -503,7 +504,12 @@
                 let qty = $(this).val();
                 let harga = $(this).parent().parent().find('td:nth-child(4)').find('input[name="harga_jual[]"]').val();
                 
-                $(this).parent().parent().find('td:nth-child(6)').text(qty * harga);
+                $(this).parent().parent().find('td:nth-child(6)').find('input[name="subtotal[]"]').val(qty * harga);
+                subTot();
+            })
+            
+            $('.tabel-transaksi').on('input', '.row-subtotal', function(){
+                // let subtotal = $(this).val();
                 subTot();
             })
 
@@ -605,14 +611,6 @@
 
         .table.table-sm tr th{
             padding: 2px;
-        }
-        
-        /* body.theme-dark .table.table-sm tr th{
-            padding: 2px !important;
-        } */
-
-        .receipt-modal{
-            font-family: 'Inconsolata', monospace;
         }
     </style>
 @endpush

@@ -158,7 +158,7 @@
                                 <div class="col-12">
                                     <div class="form-group mandatory">
                                         <label for="kode" class="form-label">Kode Barang</label>
-                                        <input type="number" id="kode" class="form-control" placeholder="Kode Barang. Contoh : 848887555421" name="kode" data-parsley-required="true"/>
+                                        <input type="text" id="kode" class="form-control" placeholder="Kode Barang. Contoh : MIE-INDxxxx1" name="kode" data-parsley-required="true"/>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -262,7 +262,6 @@
     <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
     <script src="assets/js/pages/datatables.js"></script>
 
-    <script src="assets/extensions/jquery/jquery.min.js"></script>
     <script src="assets/extensions/parsleyjs/parsley.min.js"></script>
     <script src="assets/js/pages/parsley.js"></script>
 

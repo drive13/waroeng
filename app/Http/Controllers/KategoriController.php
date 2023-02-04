@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kategori;
-use App\Http\Requests\StoreKategoriRequest;
-use App\Http\Requests\UpdateKategoriRequest;
+use Illuminate\Http\Request;
 
 class KategoriController extends Controller
 {
@@ -15,7 +14,10 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+        return view('kategori.index', [
+            'title' => 'Kategori',
+            'data' => Kategori::withCount('barangs')->get(),
+        ]);
     }
 
     /**
@@ -34,9 +36,16 @@ class KategoriController extends Controller
      * @param  \App\Http\Requests\StoreKategoriRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreKategoriRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request);
+        $validatedData = $request->validate([
+            'kategori' => 'required',
+            'keterangan' => 'nullable',
+        ]);
+
+        Kategori::create($validatedData);
+        return back()->with('success', 'Kategori berhasil ditambahkan!');
     }
 
     /**

@@ -53,7 +53,7 @@ class BarangController extends Controller
         $validatedData = $request->validate([
             'kategori_id' => 'required|integer',
             'tipe_dagangan_id' => 'required|integer',
-            'kode' => 'required|integer|unique:barangs',
+            'kode' => 'required|unique:barangs',
             'nama' => 'required',
             'modal' => 'required',
             'harga_jual' => 'required',
@@ -113,7 +113,7 @@ class BarangController extends Controller
         $validatedData = $request->validate([
             'kategori_id' => 'required|integer',
             'tipe_dagangan_id' => 'required|integer',
-            'kode' => 'required|integer',
+            'kode' => 'required',
             'nama' => 'required',
             'modal' => 'required',
             'harga_jual' => 'required',

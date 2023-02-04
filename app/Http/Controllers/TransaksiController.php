@@ -126,7 +126,7 @@ class TransaksiController extends Controller
             'qty' => 'required|array|min:1',
             'qty.*' => 'required|integer',
             'kode' => 'required|array|min:1',
-            'kode.*' => 'required|integer',
+            'kode.*' => 'required',
             'modal' => 'required|array|min:1',
             'modal.*' => 'required|integer',
             'harga_jual' => 'required|array|min:1',

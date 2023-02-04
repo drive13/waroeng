@@ -8,7 +8,12 @@
                 <span>Dashboard</span>
             </a>
         </li>
-
+        <li class="sidebar-item {{ Request::is('kategoris') ? 'active' : '' }}">
+            <a href="{{ route('kategoris.index') }}" class="sidebar-link">
+                <i class="bi bi-grid-fill"></i>
+                <span>Kategori</span>
+            </a>
+        </li>
         <li class="sidebar-item {{ Request::is('barangs*') ? 'active' : '' }} has-sub">
             <a href="#" class="sidebar-link">
                 <i class="bi bi-stack"></i>
