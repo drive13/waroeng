@@ -27,7 +27,7 @@
         </div>
 
         <section class="section">
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Info Kategori</h4>
                 </div>
@@ -37,7 +37,7 @@
                     praesentium, odit deserunt eaque nihil saepe hic deleniti?
                     Placeat delectus quibusdam ratione ullam!
                 </div>
-            </div>
+            </div> --}}
 
             <div class="card">
                 <div class="card-header ">

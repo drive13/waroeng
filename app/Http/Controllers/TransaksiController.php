@@ -31,17 +31,22 @@ class TransaksiController extends Controller
     public function create()
     {
         $latestInvoice = Transaksi::select('invoice')->latest()->first();
-        $latestInvoice = $latestInvoice->invoice;
-        $latestNum = explode('/', $latestInvoice);
-        $increment = (int) $latestNum[2] + 1;
-        if (strlen($increment) == 1) {
-            $newNum = '000' . $increment;
-        } elseif (strlen($increment) == 2) {
-            $newNum = '00' . $increment;
-        } elseif (strlen($increment) == 3) {
-            $newNum = '0' . $increment;
+        // dd($latestInvoice);
+        if ($latestInvoice == null) {
+            $newNum = '0001';
         } else {
-            $newNum = $increment;
+            $latestInvoice = $latestInvoice->invoice;
+            $latestNum = explode('/', $latestInvoice);
+            $increment = (int) $latestNum[2] + 1;
+            if (strlen($increment) == 1) {
+                $newNum = '000' . $increment;
+            } elseif (strlen($increment) == 2) {
+                $newNum = '00' . $increment;
+            } elseif (strlen($increment) == 3) {
+                $newNum = '0' . $increment;
+            } else {
+                $newNum = $increment;
+            }
         }
 
         $pembelis = Pembeli::all();
